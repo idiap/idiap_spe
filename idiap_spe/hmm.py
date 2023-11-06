@@ -275,7 +275,7 @@ class HMM:
 
             ax2.legend()
 
-        plt.show()  # type: ignore[no-untyped-call]
+        plt.show()  # type: ignore[no-untyped-call,unused-ignore]
 
     def compare_sequences(
         self,
@@ -340,4 +340,4 @@ class HMM:
 
         ax0.legend()
 
-        plt.show()  # type: ignore[no-untyped-call]
+        plt.show()  # type: ignore[no-untyped-call,unused-ignore]
