@@ -1,0 +1,116 @@
+# SPDX-FileCopyrightText: Idiap Research Institute
+# SPDX-FileContributor: Enno Hermann <enno.hermann@idiap.ch>
+# SPDX-License-Identifier: GPL-3.0-only
+
+#+TITLE: Grapheme-to-Phoneme (G2P) Conversion with Phonetisaurus
+#+OPTIONS: date:nil tags:nil
+
+#+LATEX_HEADER_EXTRA: \usepackage[margin=2cm]{geometry}
+
+* Introduction
+
+Both automatic speech recognition (ASR) and text-to-speech (TTS) systems usually
+require a lexicon that lists the pronunciations of words. However, a lexicon can
+never cover all words. In this case, pronunciations are obtained from a
+grapheme-to-phoneme (G2P), or letter-to-sound, model. [[https://github.com/AdolfVonKleist/Phonetisaurus][Phonetisaurus]] is a common
+tool to train G2P models. In this exercise we will train a G2P model on the [[https://github.com/cmusphinx/cmudict][CMU
+lexicon]] for American English and then use it to generate pronunciations for
+new words. A wrapper for Phonetisaurus is available on [[https://pypi.org/project/phonetisaurus/][PyPI]] and can be used from
+Python as in this lab, but for the full functionality you should use the command
+line.
+
+The goal of this lab is to get a better understanding of *what* G2P is, *why* it
+is needed for ASR and TTS, and *what data* you need for training a G2P model.
+You don't have to worry about the details of *how* the model is trained, this is
+beyond the scope of this course, but you should be able to think of some methods
+which you could use for this.
+
+#+BEGIN_SRC jupyter-python :exports (if (eq 'latex org-export-current-backend) "none" "code")
+  %load_ext autoreload
+  %autoreload 2
+#+END_SRC
+
+* The CMU pronunciation lexicon
+
+First let's read the CMU lexicon file into a Python dictionary, so that we can
+take a look at what's inside. The =cmudict= [[https://pypi.org/project/cmudict/][Python wrapper package]] provides easy
+access to the lexicon.
+
+#+begin_src jupyter-python
+  import cmudict
+  import phonetisaurus as ps
+
+  lexicon = ps.load_lexicon(cmudict.dict_string().decode().split("\n"))
+#+end_src
+
+Look at a sample of words and their pronunciations to become familiar with the
+format and notation:
+
+#+begin_src jupyter-python
+  import random
+  for word in random.sample(list(lexicon), 10):
+      print(word + ":", " ".join(lexicon[word][0]))
+#+end_src
+
+Note that words can have multiple possible pronunciations:
+
+#+begin_src jupyter-python
+  lexicon["either"]
+#+end_src
+
+* Training a G2P model
+
+Now we will train a G2P model. This should not take more than 5 minutes.
+
+#+begin_src jupyter-python
+  help(ps.train)
+#+end_src
+
+#+begin_src jupyter-python :results output silent
+  model_path = "g2p.fst"
+  ps.train(lexicon, model_path)
+#+end_src
+
+* Generating pronunciations
+
+Now we can generate pronunciations for new words with our model:
+
+#+begin_src jupyter-python
+  help(ps.predict)
+#+end_src
+
+#+begin_src jupyter-python
+  words = ["excellent", "eggselent", "otorhinolaryngological"]
+  for prediction in ps.predict(words, model_path):
+      print(prediction)
+#+end_src
+
+Try out other words to see their predicted pronunciations, including
+misspellings, your own name, foreign or other challenging words, etc. Remember,
+the task of a G2P model is to predict pronunciations for rare words that are not
+found in the lexicon.
+
+You can also obtain multiple candidate pronunciations for each word:
+#+begin_src jupyter-python
+  words = ["eggselent"]
+  for prediction in ps.predict(words, model_path, nbest=5):
+      print(prediction)
+#+end_src
+
+* How it works
+
+Phonetisaurus learns to align grapheme and phoneme sequences with the EM
+algorithm to identify relationships such as /igh-​/AY​//. It then trains an N-gram
+model on the aligned sequences and converts it to a weighted finite-state
+transducer (WFST). It support multiple methods to obtain pronunciations for new
+words from this WFST. You can find more information in the paper [[https://www.aclweb.org/anthology/W12-6208/][WFST-Based
+Grapheme-to-Phoneme Conversion: Open Source tools for Alignment, Model-Building
+and Decoding]].
+
+# Local variables:
+# org-confirm-babel-evaluate: nil
+# org-export-with-broken-links: t
+# eval: (poetry-venv-workon)
+# eval: (load-file "export.el")
+# eval: (add-hook 'after-save-hook (lambda () (spe/ox-ipynb-export-to-ipynb-file)) t t)
+# end:

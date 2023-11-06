@@ -1,0 +1,55 @@
+# SPDX-FileCopyrightText: Idiap Research Institute
+# SPDX-FileContributor: Enno Hermann <enno.hermann@idiap.ch>
+# SPDX-License-Identifier: GPL-3.0-only
+
+* Idiap Speech Processing Exercises
+
+Set of exercises on automatic speech processing.
+
+** Installation
+
+Create and activate a virtual environment, for example with [[https://docs.conda.io/en/latest/][conda]]:
+
+#+begin_src shell
+  conda create -n spe python=3.10
+  conda activate spe
+#+end_src
+
+Clone this repository:
+#+begin_src shell
+  git clone git@github.com:idiap/idiap_spe.git
+#+end_src
+
+Install the =idiap_spe= package in [[https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs][editable mode]], so that you are free to make
+any changes to the code:
+
+#+begin_src shell
+  cd idiap_spe
+  pip install -e .
+#+end_src
+
+** Exercises
+
+The following exercises are available as both [[https://jupyter.org/][Jupyter]] and [[https://orgmode.org/worg/org-contrib/babel/][Org Babel]] notebooks.
+
+- Speech signal analysis ([[./jupyter-notebooks/speech_analysis.ipynb][Jupyter]], [[./org-notebooks/speech_analysis.org][Org]])
+- Hidden Markov models ([[./jupyter-notebooks/hmm.ipynb][Jupyter]], [[./org-notebooks/hmm.org][Org]])
+- Grapheme-to-phoneme (G2P) conversion ([[./jupyter-notebooks/g2p.ipynb][Jupyter]], [[./org-notebooks/g2p.org][Org]])
+
+A Jupyter notebook can be launched like this:
+
+#+begin_src shell
+  conda activate spe
+  jupyter notebook jupyter-notebooks/hmm.ipynb
+#+end_src
+
+*Note:* For the HMM exercise you might first need to install /Graphviz/
+following the instructions for your operating system here:
+[[https://graphviz.org/download/]]
+
+** Acknowledgements
+
+The speech signal analysis and HMM exercises were originally developed in Matlab
+by Sacha Krstulović, Hervé Bourlard, and Mathew Magimai-Doss for the /Speech
+Processing and Speech Recognition/ course at École polytechnique fédérale de
+Lausanne (EPFL).

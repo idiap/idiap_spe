@@ -1,0 +1,10 @@
+ Name           License                                          URL
+ cmudict        GNU General Public License v3 or later (GPLv3+)  https://github.com/prosegrinder/python-cmudict
+ cycler         BSD License                                      https://matplotlib.org/cycler/
+ graphviz       MIT License                                      https://github.com/xflr6/graphviz
+ jupyter        BSD License                                      http://jupyter.org
+ librosa        ISC License (ISCL)                               https://librosa.org
+ matplotlib     Python Software Foundation License               https://matplotlib.org
+ numpy          BSD License                                      https://www.numpy.org
+ phonetisaurus  MIT License                                      https://github.com/rhasspy/phonetisaurus-pypi
+ scipy          BSD License                                      https://scipy.org/

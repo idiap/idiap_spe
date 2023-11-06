@@ -1,0 +1,20 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: idiap_spe
+Upstream-Contact: Enno Hermann <enno.hermann@idiap.ch>
+Source:
+
+Files: jupyter-notebooks/*.ipynb
+Copyright: Idiap Research Institute
+License: GPL-3.0-only
+
+Files: poetry.lock
+Copyright: Idiap Research Institute
+License: CC0-1.0
+
+Files: THIRD-PARTY-LICENSES.txt
+Copyright: Idiap Research Institute
+License: CC0-1.0
+
+Files: idiap_spe/data/speech_analysis/*
+Copyright: Idiap Research Institute
+License: GPL-3.0-only

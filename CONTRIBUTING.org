@@ -1,0 +1,68 @@
+# SPDX-FileCopyrightText: Idiap Research Institute
+# SPDX-FileContributor: Enno Hermann <enno.hermann@idiap.ch>
+# SPDX-License-Identifier: GPL-3.0-only
+
+* Development guide
+
+** Python library
+
+The [[./idiap_spe]] Python library contains key implementations and tools
+for the exercises.
+
+*** Installation
+
+#+begin_src shell
+  git clone git@github.com:idiap/idiap_spe.git
+  cd idiap_spe
+  poetry install
+  poetry shell  # create a nested shell with the poetry environment activated
+#+end_src
+
+*** Pre-commit
+
+The code is formatted and linted with [[https://docs.astral.sh/ruff/][ruff]]. Additionally, strict type checks are
+enforced with [[https://mypy-lang.org/][mypy]]. These are run automatically as [[https://pre-commit.com/][pre-commit]] hooks (see
+[[./.pre-commit-config.yaml]]) by the CI, but you can also install them for local
+use:
+
+#+begin_src shell
+  pre-commit install
+#+end_src
+
+The following then automatically formats your code and tells you whether any further
+changes are required to pass the lint checks:
+
+#+begin_src shell
+  pre-commit run
+#+end_src
+
+*** Unit tests and coverage
+
+Run unit tests and display coverage report:
+
+#+begin_src shell
+  coverage run
+  coverage report
+#+end_src
+
+*** Third party licenses
+
+The [[./THIRD-PARTY-LICENSES.txt][list of licenses of our dependencies]] is generated as follows:
+#+begin_src shell
+  pip-licenses --no-version --with-urls --output-file=THIRD-PARTY-LICENSES.txt \
+               -p $(poetry show -T --without dev | tr -s ' ' | cut -f1 -d' ' | tr '\n' ' ')
+#+end_src
+** Exercise notebooks
+
+All exercises are developed from [[https://orgmode.org/][org-mode]] files in [[./org-notebooks]]. Thanks to
+[[https://orgmode.org/worg/org-contrib/babel/][Babel]], they can be run as interactive notebooks inside [[https://www.gnu.org/software/emacs/][Emacs]].
+
+With a [[./org-notebooks/export.el][script]] and the [[https://github.com/jkitchin/ox-ipynb][ox-ipynb]] module, we automatically export the org files to
+Jupyter notebooks in [[./jupyter-notebooks]] when they are edited.
+
+*** Requirements
+
+#+begin_src elisp
+  (require 'org)
+  (require 'ox-ipynb)
+#+end_src

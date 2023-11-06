@@ -1,0 +1,19 @@
+# SPDX-FileCopyrightText: Idiap Research Institute
+# SPDX-FileContributor: Enno Hermann <enno.hermann@idiap.ch>
+# SPDX-License-Identifier: GPL-3.0-only
+
+* Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [[https://keepachangelog.com/en/1.0.0/][Keep a Changelog]], and this project adheres to [[https://semver.org/spec/v2.0.0.html][Semantic
+Versioning]].
+
+** [Unreleased]
+
+*** Added
+
+- =idiap_spe= Python package
+- Speech signal analysis exercise
+- Hidden Markov models exercise
+- Grapheme-to-phoneme (G2P) exercise
