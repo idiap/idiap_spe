@@ -17,7 +17,7 @@ Create and activate a virtual environment, for example with [[https://docs.conda
 
 Clone this repository:
 #+begin_src shell
-  git clone git@github.com:idiap/idiap_spe.git
+  git clone https://github.com/idiap/idiap_spe.git
 #+end_src
 
 Install the =idiap_spe= package in [[https://pip.pypa.io/en/stable/topics/local-project-installs/#editable-installs][editable mode]], so that you are free to make
